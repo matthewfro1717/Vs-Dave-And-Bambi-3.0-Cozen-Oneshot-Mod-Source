@@ -216,7 +216,7 @@ class FreeplayState extends MusicBeatState
 		{
 			Catagories = ['joke'];
 			translatedCatagory = [];
-				LanguageManager.getTextString('freeplay_joke')
+				LanguageManager.getTextString('freeplay_joke');
 		}
 
 		for (i in 0...Catagories.length)
