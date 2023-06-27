@@ -732,7 +732,7 @@ class PlayState extends MusicBeatState
 		{
 			switch(SONG.song.toLowerCase())
 			{
-				case 'unfairness' | cozen:
+				case 'unfairness' | 'cozen':
 					stageCheck = 'glitchy-void';
 			}
 		}
