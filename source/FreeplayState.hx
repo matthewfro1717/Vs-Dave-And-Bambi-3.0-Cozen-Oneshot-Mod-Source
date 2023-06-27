@@ -49,15 +49,9 @@ class FreeplayState extends MusicBeatState
 
 	private var CurrentSongIcon:FlxSprite;
 
-	private var Catagories:Array<String> = ['dave', 'joke', 'extras', 'dave2.5', 'classic', 'cover', 'fanmade'];
-	var translatedCatagory:Array<String> = [
-		LanguageManager.getTextString('freeplay_dave'),
-		LanguageManager.getTextString('freeplay_joke'),
-		LanguageManager.getTextString('freeplay_extra'),
-		LanguageManager.getTextString('freeplay_dave2.5'),
-		LanguageManager.getTextString('freeplay_classic'),
-		LanguageManager.getTextString('freeplay_cover'),
-		LanguageManager.getTextString('freeplay_fanmade')
+	private var Catagories:Array<String> = ['joke'];
+	var translatedCatagory:Array<String> = []
+		LanguageManager.getTextString('freeplay_joke')
 	];
 
 	private var CurrentPack:Int = 0;
@@ -220,16 +214,9 @@ class FreeplayState extends MusicBeatState
 		}
 		if (FlxG.save.data.terminalFound && !awaitingExploitation)
 		{
-			Catagories = ['dave', 'joke', 'extras', 'dave2.5', 'classic', 'cover', 'fanmade', 'terminal'];
+			Catagories = ['joke'];
 			translatedCatagory = [
-				LanguageManager.getTextString('freeplay_dave'),
-				LanguageManager.getTextString('freeplay_joke'),
-				LanguageManager.getTextString('freeplay_extra'),
-				LanguageManager.getTextString('freeplay_dave2.5'),
-				LanguageManager.getTextString('freeplay_classic'),
-				LanguageManager.getTextString('freeplay_cover'),
-				LanguageManager.getTextString('freeplay_fanmade'),
-				LanguageManager.getTextString('freeplay_terminal')];
+				LanguageManager.getTextString('freeplay_joke')
 		}
 
 		for (i in 0...Catagories.length)
@@ -332,95 +319,10 @@ class FreeplayState extends MusicBeatState
 	{
 		switch (Catagories[CurrentPack].toLowerCase())
 		{
-			case 'uhoh':
-				addWeek(['Exploitation'], 16, ['expunged']);
-			case 'dave':
-				addWeek(['Warmup'], 0, ['dave']);
-				addWeek(['House', 'Insanity', 'Polygonized'], 1, ['dave', 'dave-annoyed', 'dave-angey']);
-				addWeek(['Blocked', 'Corn-Theft', 'Maze'], 2, ['bambi-new', 'bambi-new', 'bambi-new']);
-				addWeek(['Splitathon'], 3, ['the-duo']);
-				addWeek(['Shredder', 'Greetings', 'Interdimensional', 'Rano'], 4, ['bambi-new', 'tristan-festival', 'dave-festival-3d', 'dave-festival']);
 			case 'joke':
-				if (FlxG.save.data.hasPlayedMasterWeek)
-				{
-					addWeek(['Supernovae', 'Glitch', 'Master'], 5, ['bambi-joke']);
-					addWeek(['Old-Supernovae', 'Old-Glitch'], 5, ['bambi-joke']);
-					addWeek(['Vs-Dave-Thanksgiving'], 5, ['bambi-joke']);
-				}				
-				if (!FlxG.save.data.terminalFound)
-				{
-					if (FlxG.save.data.cheatingFound)
-						addWeek(['Cheating'], 14, ['bambi-3d']);
-					if (FlxG.save.data.unfairnessFound)
-						addWeek(['Unfairness'], 15, ['bambi-unfair']);
-				}
-				if (FlxG.save.data.exbungoFound)
-					addWeek(['Kabunga'], 6, ['exbungo']);
-
-				if (FlxG.save.data.oppressionFound)
-					addWeek(['Oppression'], 14, ['bambi-3d-old']);
-				
-				if (FlxG.save.data.roofsUnlocked)
-					addWeek(['Roofs'], 7, ['baldi']);
-
-				if (FlxG.save.data.secretUnlocked)
-					addWeek(['Secret'], 5, ['marcello-dave']);
-
-				if (FlxG.save.data.secretUnlocked)
-					addWeek(['Secret-Mod-Leak'], 7, ['baldi']);
-
-				if (FlxG.save.data.electricCockaldoodledooUnlocked)
-					addWeek(['Bananacore', 'Eletric-Cockadoodledoo', 'Electric-Cockaldoodledoo'], 18, ['bananacoreicon', 'old-cicons', 'electricicons']);
-
-			    addWeek(['Vs-Dave-Rap'], 1, ['dave-cool']);
-				if(FlxG.save.data.vsDaveRapTwoFound)
-				{
-					addWeek(['Vs-Dave-Rap-Two'], 1, ['dave-cool']);
-				}
-			case 'extras':
-				if (FlxG.save.data.recursedUnlocked)
-					addWeek(['Recursed'], 10, ['recurser']);
-			    addWeek(['Bonus-Song', 'Roots'], 1, ['dave', 'dave']);
-				addWeek(['Bot-Trot'], 9, ['playrobot']);
-				addWeek(['Escape-From-California'], 11, ['moldy']);
-				addWeek(['Five-Nights'], 12, ['dave']);
-				addWeek(['Bonkers'], 19, ['longnosejohn']);
-				addWeek(['ThreeDimensional', 'Bf-Ugh', 'Adventure'], 8, ['tristan-opponent', 'tristan-opponent', 'tristan-opponent']);
-				addWeek(['Overdrive'], 13, ['dave-awesome']);
-				addWeek(['Mealie'], 2, ['bambi-loser']);
-				addWeek(['Indignancy'], 2, ['bambi-angey']);
-				addWeek(['Memory'], 1, ['dave']);
-			case 'dave2.5':
-				addWeek(['House-2.5', 'Insanity-2.5', 'Polygonized-2.5'], 1, ['dave-2.5', 'dave-annoyed-2.5', 'dave-angey-old']);
-				addWeek(['Bonus-Song-2.5'], 1, ['dave-2.5']);
-				addWeek(['Blocked-2.5', 'Corn-Theft-2.5', 'Maze-2.5'], 2, ['bambi-scrapped-3.0', 'bambi-scrapped-3.0', 'bambi-scrapped-3.0']);
-			case 'classic':
-				addWeek(['Old-House', 'Old-Insanity', 'Furiosity'], 1, ['dave-pre-alpha', 'dave-pre-alpha', 'furiosity-dave']);
-				addWeek(['Old-Blocked', 'Old-Corn-Theft', 'Old-Maze', 'Beta-Maze'], 2, ['bambi-1.0', 'bambi-beta-2', 'bambi-beta-2', 'bambi-2.0']);
-				addWeek(['Old-Splitathon'], 3, ['the-duo-old']);
-				addWeek(['Old-Screwed', 'Screwed-V2'], 2, ['bambi-angey-old', 'bambi-angey-old']);
-			case 'fanmade':
-				addWeek(['Blitz', 'No-Legs'], 1, ['dave-annoyed', 'dave']);
-				addWeek(['Duper'], 2, ['bambi-angey', 'bambi-new']);
-				if (FlxG.save.data.riggedFound) // i will add it back
-					addWeek(['Rigged'], 14, ['bambi-3d']);
-				if (FlxG.save.data.importumaniaFound)
-					addWeek(['Importumania'], 14, ['importumania']);
-			case 'cover':
-				addWeek(['Confronting-Yourself'], 4, ['tristan-festival']);
-				addWeek(['Cob', 'Super-Saiyan'], 1, ['dave', 'dave-annoyed']);
-				addWeek(['Foolhardy'], 2, ['zardyMyBeloved']);
-				if (FlxG.save.data.electricCockaldoodledooUnlocked)
-					addWeek(['Cuzsie-X-Kapi-Shipping-Cute'], 20, ['cuzsiee']);
-			case 'terminal':
-				if (FlxG.save.data.cheatingFound)
-					addWeek(['Cheating'], 14, ['bambi-3d']);
-				if (FlxG.save.data.unfairnessFound)
-					addWeek(['Unfairness'], 15, ['bambi-unfair']);
-				if (FlxG.save.data.exploitationFound)
-					addWeek(['Exploitation'], 16, ['expunged']);
-
-				addWeek(['Enter Terminal'], 17, ['terminal']);
+			    addWeek(['Unfairness'], 15, ['bambi-unfair']);
+			if (FlxG.save.data.cozenFound)
+				addWeek(['Cozen'], 15, ['bambi-unfair']);
 		}
 	}
 
