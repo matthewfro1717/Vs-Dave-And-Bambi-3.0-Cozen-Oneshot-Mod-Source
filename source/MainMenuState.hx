@@ -41,32 +41,23 @@ class MainMenuState extends MusicBeatState
 
 	var optionShit:Array<String> = 
 	[
-		'story mode', 
 		'freeplay', 
 		'credits',
-		'ost',
-		'options',
-		'discord'
+		'options'
 	];
 
 	var languagesOptions:Array<String> =
 	[
-		'main_story',
 		'main_freeplay',
 		'main_credits',
-		'main_ost',
-		'main_options',
-		'main_discord'
+		'main_options'
 	];
 
 	var languagesDescriptions:Array<String> =
 	[
-		'desc_story',
 		'desc_freeplay',
 		'desc_credits',
-		'desc_ost',
-		'desc_options',
-		'desc_discord'
+		'desc_options'
 	];
 
 	public static var firstStart:Bool = true;
