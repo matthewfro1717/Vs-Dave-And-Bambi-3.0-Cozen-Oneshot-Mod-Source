@@ -1412,7 +1412,6 @@ class PlayState extends MusicBeatState
 					baldi = new BGSprite('baldi', -182, 977, Paths.image('backgrounds/void/baldo', 'shared'), null, 0.65, 0.65);
 					baldi.setGraphicSize(Std.int(baldi.width * 0.5));
 					baldi.updateHitbox();
-					baldi.color = variantColor;
 					sprites.insert(members.indexOf(bg), baldi);
 					insert(members.indexOf(bg), baldi);
 				}
