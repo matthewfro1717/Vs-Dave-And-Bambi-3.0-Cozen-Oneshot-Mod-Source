@@ -732,71 +732,8 @@ class PlayState extends MusicBeatState
 		{
 			switch(SONG.song.toLowerCase())
 			{
-				case 'house' | 'insanity' | 'supernovae' | 'old-supernovae' | 'warmup' | 'threedimensional' | 'second-tristan-song' |
-				'house-2.5' | 'insanity-2.5' | 'roots' | 'vs-dave-thanksgiving':
-					stageCheck = 'house';
-				case 'polygonized' | 'polygonized-2.5' | 'furiosity':
-					stageCheck = 'red-void';
-				case 'bonus-song':
-					stageCheck = 'inside-house';
-				case 'blocked' | 'corn-theft' | 'maze':
-					stageCheck = 'farm';
-				case 'indignancy':
-					stageCheck = 'farm-night';
-				case 'splitathon' | 'mealie' | 'old-splitathon':
-					stageCheck = 'farm-night';
-				case 'shredder' | 'greetings':
-					stageCheck = 'festival';
-				case 'interdimensional':
-					stageCheck = 'interdimension-void';
-				case 'rano':
-					stageCheck = 'backyard';
-				case 'cheating' | 'oppression' | 'importumania':
-					stageCheck = 'green-void';
-				case 'unfairness':
+				case 'unfairness' | cozen:
 					stageCheck = 'glitchy-void';
-				case 'exploitation':
-					stageCheck = 'desktop';
-				case 'kabunga':
-					stageCheck = 'exbungo-land';
-				case 'glitch' | 'memory'  | 'old-glitch' | 'bonus-song-2.5':
-					stageCheck = 'house-night';
-				case 'secret':
-					stageCheck = 'house-sunset';
-				case 'vs-dave-rap' | 'vs-dave-rap-two':
-					stageCheck = 'rapBattle';
-				case 'recursed':
-					stageCheck = 'freeplay';
-				case 'roofs':
-					stageCheck = 'roof';
-				case 'bot-trot':
-					stageCheck = 'bedroom';
-				case 'escape-from-california':
-					stageCheck = 'desert';
-				case 'master':
-					stageCheck = 'master';
-				case 'overdrive':
-					stageCheck = 'overdrive';
-				case 'bananacore' | 'electric-cockaldoodledoo' | 'eletric-cockadoodledoo':
-					stageCheck = 'banana-hell';
-				case 'old-house' | 'old-insanity':
-					stageCheck = 'house-older';
-				case 'beta-maze':
-					stageCheck = 'farm-sunset-2.5';
-				case 'old-screwed' | 'screwed-v2' | 'beta-Maze':
-					stageCheck = 'farm-2.5';
-				case 'super-saiyan':
-					stageCheck = 'stage_2';
-				case 'bonkers':
-					stageCheck = 'garrettLand';
-				case 'old-blocked' | 'Old-Corn-Theft' | 'old-maze':
-					stageCheck = 'old-farm';
-				case 'blocked-2.5' | 'corn-theft-2.5':
-					stageCheck = 'scrapped-farm';
-				case 'maze-2.5':
-					stageCheck = 'scrapped-farm-sunset';
-				case 'foolhardy':
-					stageCheck = 'fuckyouZardyTime';
 			}
 		}
 		else
@@ -866,41 +803,6 @@ class PlayState extends MusicBeatState
 		bfTrailGroup = new FlxGroup();
 		bfGroup = new FlxGroup();
 
-		switch (stageCheck)
-		{
-			case 'office':
-				add(gfGroup);
-				add(bfGroup);
-
-				var floor:BGSprite = new BGSprite('frontFloor', -689, 525, Paths.image('backgrounds/office/floor'), null, 1, 1);
-				backgroundSprites.add(floor);
-				add(floor);
-
-				door = new BGSprite('door', 68, -152, 'backgrounds/office/door', [
-					new Animation('idle', 'doorLOL instance 1', 0, false, [false, false], [11]),
-					new Animation('doorShut', 'doorLOL instance 1', 24, false, [false, false], CoolUtil.numberArray(22, 11)),
-					new Animation('doorOpen', 'doorLOL instance 1', 24, false, [false, false], CoolUtil.numberArray(11, 0))
-				], 1, 1, true, true);
-				door.animation.play('idle');
-				backgroundSprites.add(door);
-				add(door);
-
-				var frontWall:BGSprite = new BGSprite('frontWall', -716, -381, Paths.image('backgrounds/office/frontWall'), null, 1, 1);
-				backgroundSprites.add(frontWall);
-				add(frontWall);
-
-				doorButton = new BGSprite('doorButton', 521, 61, Paths.image('fiveNights/btn_doorOpen'), null, 1, 1);
-				backgroundSprites.add(doorButton);
-				add(doorButton);
-
-				add(dadGroup);
-			default:
-				add(gfGroup);
-				add(dadGroup);
-				add(bfTrailGroup);
-				add(bfGroup);
-		}
-
 		gf = new Character(400, 130, gfVersion);
 		gf.scrollFactor.set(0.95, 0.95);
 
@@ -910,118 +812,6 @@ class PlayState extends MusicBeatState
 		}
 
 		dad = new Character(100, 450, SONG.player2);
-		switch (SONG.song.toLowerCase())
-		{
-			case 'insanity' | 'insanity-2.5':
-				dadmirror = new Character(100, 200, "dave-angey");
-				dadmirror.visible = false;
-		}
-		switch (SONG.song.toLowerCase())
-		{
-			case 'maze':
-				tweenTime = sectionStartTime(25);
-				for (i in 0...backgroundSprites.members.length)
-				{
-					var bgSprite = backgroundSprites.members[i];
-					var tween:FlxTween = null;
-					switch (i)
-					{
-						case 0:
-							tween = FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000);
-						case 1:
-							tween = FlxTween.tween(bgSprite, {alpha: 1}, tweenTime / 1000).then(FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000));
-						case 2:
-							tween = FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000).then(FlxTween.tween(bgSprite, {alpha: 1}, tweenTime / 1000));
-						default:
-							tween = FlxTween.color(bgSprite, tweenTime / 1000, FlxColor.WHITE, sunsetColor).then(
-								FlxTween.color(bgSprite, tweenTime / 1000, sunsetColor, nightColor)
-								);
-					}
-					tweenList.push(tween);
-				}
-				var gfTween = FlxTween.color(gf, tweenTime / 1000, FlxColor.WHITE, sunsetColor).then(FlxTween.color(gf, tweenTime / 1000, sunsetColor, nightColor));
-				var bambiTween = FlxTween.color(dad, tweenTime / 1000, FlxColor.WHITE, sunsetColor).then(FlxTween.color(dad, tweenTime / 1000, sunsetColor, nightColor));
-				bfTween = FlxTween.color(boyfriend, tweenTime / 1000, FlxColor.WHITE, sunsetColor, {
-					onComplete: function(tween:FlxTween)
-					{
-						bfTween = FlxTween.color(boyfriend, tweenTime / 1000, sunsetColor, nightColor);
-					}
-				});
-	
-				tweenList.push(gfTween);
-				tweenList.push(bambiTween);
-				tweenList.push(bfTween);
-			case 'rano':
-				tweenTime = sectionStartTime(56);
-				for (i in 0...backgroundSprites.members.length)
-				{
-					var bgSprite = backgroundSprites.members[i];
-					var tween:FlxTween = null;
-					switch (i)
-					{
-						case 0:
-							tween = FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000);
-						case 1:
-							tween = FlxTween.tween(bgSprite, {alpha: 1}, tweenTime / 1000).then(FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000));
-						case 2:
-							tween = FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000).then(FlxTween.tween(bgSprite, {alpha: 1}, tweenTime / 1000));
-						default:
-							tween = FlxTween.color(bgSprite, tweenTime / 1000, nightColor, sunsetColor).then(
-								FlxTween.color(bgSprite, tweenTime / 1000, sunsetColor, FlxColor.WHITE));
-					}
-					tweenList.push(tween);
-				}
-				var gfTween = FlxTween.color(gf, tweenTime / 1000, nightColor, sunsetColor).then(FlxTween.color(gf, tweenTime / 1000, sunsetColor, FlxColor.WHITE));
-				var bambiTween = FlxTween.color(dad, tweenTime / 1000, nightColor, sunsetColor).then(FlxTween.color(dad, tweenTime / 1000, sunsetColor, FlxColor.WHITE));
-				bfTween = FlxTween.color(boyfriend, tweenTime / 1000, nightColor, sunsetColor, {
-					onComplete: function(tween:FlxTween)
-					{
-						bfTween = FlxTween.color(boyfriend, tweenTime / 1000, sunsetColor, FlxColor.WHITE);
-					}
-				});
-				tweenList.push(gfTween);
-				tweenList.push(bambiTween);
-				tweenList.push(bfTween);
-			case 'escape-from-california':
-				tweenTime = sectionStartTime(52);
-				for (i in 0...backgroundSprites.members.length)
-				{
-					var bgSprite = backgroundSprites.members[i];
-					var tween:FlxTween = null;
-					switch (i)
-					{
-						case 0:
-							tween = FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000);
-						case 1:
-							tween = FlxTween.tween(bgSprite, {alpha: 1}, tweenTime / 1000).then(FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000));
-						case 2:
-							tween = FlxTween.tween(bgSprite, {alpha: 0}, tweenTime / 1000).then(FlxTween.tween(bgSprite, {alpha: 1}, tweenTime / 1000));
-						default:
-							tween = FlxTween.color(bgSprite, tweenTime / 1000, FlxColor.WHITE, sunsetColor).then(
-								FlxTween.color(bgSprite, tweenTime / 1000, sunsetColor, nightColor)
-								);
-					}
-					tweenList.push(tween);
-				}
-				var gfTween = FlxTween.color(gf, tweenTime / 1000, FlxColor.WHITE, sunsetColor).then(FlxTween.color(gf, tweenTime / 1000, sunsetColor, nightColor));
-				var bambiTween = FlxTween.color(dad, tweenTime / 1000, FlxColor.WHITE, sunsetColor).then(FlxTween.color(dad, tweenTime / 1000, sunsetColor, nightColor));
-				bfTween = FlxTween.color(boyfriend, tweenTime / 1000, FlxColor.WHITE, sunsetColor, {
-					onComplete: function(tween:FlxTween)
-					{
-						bfTween = FlxTween.color(boyfriend, tweenTime / 1000, sunsetColor, nightColor);
-					}
-				});
-	
-				tweenList.push(gfTween);
-				tweenList.push(bambiTween);
-				tweenList.push(bfTween);
-			
-		}
-		activateSunTweens = false;
-		for (tween in tweenList)
-		{
-			tween.active = false;
-		}
 
 		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
 
@@ -1116,112 +906,11 @@ class PlayState extends MusicBeatState
 
 		switch (stageCheck)
 		{
-			case 'desktop':
-				dad.x -= 500;
-				dad.y -= 100;
-				if (isShaggy) boyfriend.y += 150;
-				if (boyfriend.curCharacter == 'godshaggy') boyfriend.x += 300;
-			case 'roof':
-				dad.setPosition(-3, 467);
-				boyfriend.setPosition(859, 343);
-				gf.setPosition(232, -1);
-			case 'rapBattle':
-				dad.setPosition(430, 240);
-				boyfriend.setPosition(1039, 263);
-				gf.setPosition(756, 194);
-			case 'farm' | 'farm-night'| 'farm-sunset':
-				dad.x += 200;
-				if (isShaggy) boyfriend.x += 150;
-			case 'house' | 'house-night' | 'house-sunset':
-				dad.setPosition(50, 270);
-				if (dadmirror != null)
-				{
-					dadmirror.setPosition(dad.x - 50, dad.y);
-				}
-				boyfriend.setPosition(843, 270);
-				gf.setPosition(300, -60);
-			case 'backyard':
-				dad.setPosition(50, 300);
-				boyfriend.setPosition(790, 300);
-				gf.setPosition(500, -100);
-			case 'festival':
-				gf.x -= 200;
-				if (!isShaggy) boyfriend.x -= 200;
-			case 'bedroom':
-				dad.setPosition(-254, 577);
-				boyfriend.setPosition(607, 786);
-			case 'master':
-				dad.setPosition(52, -166);
-				boyfriend.setPosition(1152, 311);
-				if (isShaggy) boyfriend.setPosition(1002, 241);
-				gf.setPosition(807, -22);
-			case 'desert':
-				dad.y -= 160;
-				dad.x -= 350;
-				boyfriend.x -= 275;
-				boyfriend.y -= 160;
-			case 'office':
-				dad.flipX = !dad.flipX;
-				boyfriend.flipX = !boyfriend.flipX;
-
-				dad.setPosition(306, 50);
-				boyfriend.setPosition(86, 100);
-			case 'overdrive':
-				dad.setPosition(244.15, 437);
-				boyfriend.setPosition(837, 363);
-			case 'exbungo-land':
-				dad.setPosition(298, 131);
-				boyfriend.setPosition(1332, 513);
-				gf.setPosition(756, 206);
-			case 'freeplay':
-				if (isShaggy) boyfriend.y += 200;
-				if (boyfriend.curCharacter == 'godshaggy') boyfriend.x += 300;
-			case 'red-void':
-				if (funnyFloatyBoys.contains(dad.curCharacter))
-				{
-					dad.y -= 70;
-				}
-				if (isShaggy) boyfriend.y += 50;
-			case 'interdimension-void':
-				if (isShaggy) boyfriend.y += 100;
-			case 'green-void':
-				if (isShaggy) {
-					boyfriend.x += 150;
-					boyfriend.y += 50;
-				}
 			case 'glitchy-void':
 				if (isShaggy) {
 					boyfriend.x += 150;
 					boyfriend.y += 150;
 				}
-			case 'banana-hell':
-				dad.x -= 600;
-				dad.y -= 190;
-			case 'house-older':
-				dad.y -= 100;
-			case 'garrettLand':
-				dad.setPosition(600, 150);
-				boyfriend.setPosition(1500, 150);
-				gf.setPosition(950, -200);
-			case 'fuckyouZardyTime':
-				dad.y += -170;
-				gf.y += 140;
-				boyfriend.x += 80;
-				boyfriend.y += 140;
-		}
-
-		switch (stageCheck)
-		{
-			case 'bedroom':
-				if (FlxG.random.int(0, 99) == 0)
-				{
-					var ruby:BGSprite = new BGSprite('ruby', -697, 0, Paths.image('backgrounds/bedroom/ruby', 'shared'), null, 1, 1, true);
-					backgroundSprites.add(ruby);
-					add(ruby);	
-				}
-				var tv:BGSprite = new BGSprite('tv', -697, 955, Paths.image('backgrounds/bedroom/tv', 'shared'), null, 1.2, 1.2, true);
-				backgroundSprites.add(tv);
-				add(tv);
 		}
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue, isStoryMode || localFunny == CharacterFunnyEffect.Recurser);
@@ -1248,12 +937,7 @@ class PlayState extends MusicBeatState
 
 		dadStrums = new FlxTypedGroup<StrumNote>();
 
-		shaggyVoice = isShaggy && [
-			'warmup', 'house', 'house-2.5', 'insanity', 'insanity-2.5', 'polygonized', 'polygonized-2.5', 'blocked', 'blocked-2.5',
-			'corn-theft', 'corn-theft-2.5', 'maze', 'maze-2.5', 'splitathon', 'shredder', 'greetings', 'interdimensional', 'rano', 
-			'bonus-song', 'bonus-song-2.5', 'bot-trot', 'escape-from-california', 'adventure', 'mealie', 'indignancy', 'memory',
-			'roofs', 'supernovae', 'glitch', 'master', 'cheating', 'unfairness', 'kabunga', 'recursed', 'exploitation'
-		].contains(SONG.song.toLowerCase());
+		shaggyVoice = isShaggy && ['unfairness'].contains(SONG.song.toLowerCase());
 
 		generateSong(SONG.song);
 
@@ -1389,27 +1073,6 @@ class PlayState extends MusicBeatState
 		var healthBarPathWIDE = '';
 		switch (SONG.song.toLowerCase())
 		{
-			case 'exploitation':
-				if(!FlxG.save.data.longAssBar) {
-					healthBarPath = Paths.image('ui/healthBar/HELLthBar');
-				}
-				else if(FlxG.save.data.longAssBar){
-					healthBarPathWIDE = Paths.image('ui/healthBar/HELLthBarWIDE');
-				}
-			case 'overdrive':
-				if(!FlxG.save.data.longAssBar) {
-					healthBarPath = Paths.image('ui/healthBar/fnfengine');
-				}
-				else if(FlxG.save.data.longAssBar){
-					healthBarPathWIDE = Paths.image('ui/healthBar/fnfengineWIDE');
-				}
-			case 'five-nights':
-				if(!FlxG.save.data.longAssBar) {
-					healthBarPath = Paths.image('ui/healthBar/fnfengine');
-				}
-				else if(FlxG.save.data.longAssBar){
-					healthBarPathWIDE = Paths.image('ui/healthBar/fnafengineWIDE');
-				}
 			default:
 				if(!FlxG.save.data.longAssBar) {
 					healthBarPath = Paths.image('ui/healthBar/healthBar');
@@ -1447,28 +1110,10 @@ class PlayState extends MusicBeatState
 		var credits:String;
 		switch (SONG.song.toLowerCase())
 		{
-			case 'supernovae':
-				credits = LanguageManager.getTextString('supernovae_credit');
-			case 'glitch':
-				credits = LanguageManager.getTextString('glitch_credit');
 			case 'unfairness':
 				credits = LanguageManager.getTextString('unfairness_credit');
-			case 'cheating' | 'rigged':
-				if (!modchartoption) credits = LanguageManager.getTextString('cheating_nomod_credit');
-				else credits = LanguageManager.getTextString('cheating_credit');
-			case 'exploitation':
-				if (!modchartoption) credits = LanguageManager.getTextString('exploitation_nomod_credit');
-				else credits = LanguageManager.getTextString('exploitation_credit') + " " + (!FlxG.save.data.selfAwareness ? CoolSystemStuff.getUsername() : (shaggyVoice ? 'Shaggy' : 'Boyfriend')) + "!";
-			case 'kabunga':
-				credits = LanguageManager.getTextString('kabunga_credit');
-			case 'cob':
-				credits = LanguageManager.getTextString('cob_credit');
-			case 'super-saiyan':
-				credits = LanguageManager.getTextString('super-saiyan_credit');
-			case 'cuzsie-x-kapi-shipping-cute':
-				credits = LanguageManager.getTextString('cuzsie-x-kapi-shipping-cute_credit');
-			case 'electric-cockaldoodledoo' | 'eletric-cockadoodledoo' | 'bananacore':
-				credits = LanguageManager.getTextString('electric-cockaldoodledoo_credit');
+			case 'cozen':
+				credits = LanguageManager.getTextString('cozen_credit');
 			default:
 				credits = '';
 		}
@@ -1579,138 +1224,6 @@ class PlayState extends MusicBeatState
 			creditsWatermark.antialiasing = true;
 			add(creditsWatermark);
 			creditsWatermark.cameras = [camHUD];
-		}
-		switch (curSong.toLowerCase())
-		{
-			case 'insanity' | 'insanity-2.5':
-				preload('backgrounds/void/redsky');
-				preload('backgrounds/void/redsky_insanity');
-			case 'polygonized' | 'polygonized-2.5':
-				preload('characters/3d_bf');
-				preload('characters/3d_gf');
-			case 'maze' | 'indignancy':
-				preload('spotLight');
-			case 'shredder':
-				preload('festival/bambi_shredder');
-				for (asset in ['bambi_spot', 'boyfriend_spot', 'ch_highway'])
-				{
-					preload('festival/shredder/${asset}');
-				}
-			case 'interdimensional':
-				preload('backgrounds/void/interdimensions/interdimensionVoid');
-				preload('backgrounds/void/interdimensions/spike');
-				preload('backgrounds/void/interdimensions/darkSpace');
-				preload('backgrounds/void/interdimensions/hexagon');
-				preload('backgrounds/void/interdimensions/nimbi/nimbiVoid');
-				preload('backgrounds/void/interdimensions/nimbi/nimbi_land');
-				preload('backgrounds/void/interdimensions/nimbi/nimbi');
-			case 'mealie':
-				preload('bambi/im_gonna_break_me_phone');
-			case 'recursed':
-				switch (boyfriend.curCharacter)
-				{
-					case 'dave':
-						preload('recursed/characters/Dave_Recursed');
-					case 'bambi-new':
-						preload('recursed/characters/Bambi_Recursed');
-					case 'tb-funny-man':
-						preload('recursed/characters/STOP_LOOKING_AT_THE_FILES');
-					case 'tristan' | 'tristan-golden':
-						preload('recursed/characters/TristanRecursed');
-					case 'dave-angey':
-						preload('recursed/characters/Dave_3D_Recursed');
-					case 'bambi-3d':
-						preload('recursed/characters/Cheating_Recursed');
-					default:
-						preload('recursed/Recursed_BF');
-				}
-				preload('recursed/bambiScroll');
-				preload('recursed/tristanScroll');
-				preload2(bambiBG);
-				preload2(tristanBG);
-			case 'exploitation':
-				preload('ui/glitch/glitchSwitch');
-				preload('backgrounds/void/exploit/cheater GLITCH');
-				preload('backgrounds/void/exploit/glitchyUnfairBG');
-				preload('backgrounds/void/exploit/expunged_chains');
-				preload('backgrounds/void/exploit/broken_expunged_chain');
-				preload('backgrounds/void/exploit/glitchy_cheating_2');
-			case 'bot-trot':
-				preload('backgrounds/bedroom/night/bed');
-				preload('backgrounds/bedroom/night/bg');
-				preload('playrobot/playrobot_shadow');
-			case 'escape-from-california':
-				for (spr in ['1500miles', '1000miles', '500miles', 'welcomeToGeorgia', 'georgia'])
-				{
-					preload('california/$spr');
-				}
-			case 'importumania':
-				preload('backgrounds/farm/gm_flatgrass');
-				preload('backgrounds/farm/orangey hills');
-				preload('backgrounds/farm/funfarmhouse');
-				preload('backgrounds/farm/cornFence');
-				preload('backgrounds/farm/cornFence2');
-				preload('backgrounds/farm/cornbag');
-				preload('backgrounds/farm/popeye');
-				preload('backgrounds/farm/sign');
-				preload('backgrounds/dave-house/gate');
-				preload('backgrounds/dave-house/grass bg');
-				preload('backgrounds/dave-house/grass');
-				preload('backgrounds/dave-house/hills');
-				preload('backgrounds/void/scarybg');
-				preload('backgrounds/void/redsky');
-				preload('ui/glitch/glitchSwitch');
-				preload('backgrounds/void/exploit/cheater GLITCH');
-				preload('backgrounds/void/exploit/glitchyUnfairBG');
-				preload('backgrounds/void/exploit/expunged_chains');
-				preload('backgrounds/void/exploit/broken_expunged_chain');
-				preload('backgrounds/void/exploit/glitchy_cheating_2');
-				preload('characters/3d_bf');
-				preload('characters/3d_gf');
-			case 'bananacore':
-				preload('eletric-cockadoodledoo/old-characters/Bartholemew');
-				preload('eletric-cockadoodledoo/old-characters/Cockey');
-				preload('eletric-cockadoodledoo/old-characters/Pooper');
-				preload('eletric-cockadoodledoo/old-characters/Kapi');
-				preload('eletric-cockadoodledoo/old-characters/PizzaMan');
-				preload('expunged/ExpungedFinal');
-				preload('bambi/bambiRemake');
-				preload('eletric-cockadoodledoo/indihome');
-				preload('eletric-cockadoodledoo/kapicuzsie_back');
-				preload('eletric-cockadoodledoo/kapicuzsie_front');
-				preload('eletric-cockadoodledoo/muffin');
-				preload('eletric-cockadoodledoo/sad_bambi');
-				preload('eletric-cockadoodledoo/shaggy from fnf 1');
-			case 'electric-cockaldoodledoo':
-				preload('eletric-cockadoodledoo/characters/Bartholemew');
-				preload('eletric-cockadoodledoo/characters/cockey');
-				preload('eletric-cockadoodledoo/characters/Pooper');
-				preload('eletric-cockadoodledoo/characters/Kapi');
-				preload('eletric-cockadoodledoo/characters/cuzsiee');
-				preload('eletric-cockadoodledoo/characters/PizzaMan');
-				preload('expunged/ExpungedFinal');
-				preload('bambi/bambiRemake');
-				preload('eletric-cockadoodledoo/indihome');
-				preload('eletric-cockadoodledoo/kapicuzsie_back');
-				preload('eletric-cockadoodledoo/kapicuzsie_front');
-				preload('eletric-cockadoodledoo/muffin');
-				preload('eletric-cockadoodledoo/sad_bambi');
-				preload('eletric-cockadoodledoo/shaggy from fnf 1');
-			case 'eletric-cockadoodledoo':
-				preload('eletric-cockadoodledoo/old-characters/Bartholemew');
-				preload('eletric-cockadoodledoo/old-characters/Cockey');
-				preload('eletric-cockadoodledoo/old-characters/Pooper');
-				preload('eletric-cockadoodledoo/old-characters/Kapi');
-				preload('eletric-cockadoodledoo/old-characters/cuzsiee');
-				preload('eletric-cockadoodledoo/old-characters/PizzaMan');
-				preload('expunged/ExpungedFinal');
-				preload('bambi/bambiRemake');
-				preload('eletric-cockadoodledoo/indihome');
-				preload('eletric-cockadoodledoo/kapicuzsie_back');
-				preload('eletric-cockadoodledoo/kapicuzsie_front');
-				preload('eletric-cockadoodledoo/muffin');
-				preload('eletric-cockadoodledoo/sad_bambi');
-				preload('eletric-cockadoodledoo/shaggy from fnf 1');
 		}
 
 		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width / 2 - 150, healthBarBG.y + 40, FlxG.width, "", 20);
@@ -1861,23 +1374,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 		RecalculateRating();
-
-		if (SONG.song.toLowerCase() == "eletric-cockadoodledoo" || SONG.song.toLowerCase() == "electric-cockaldoodledoo" )
-		{
-			dad.alpha = 0;
-		}
-		
-		if (SONG.song.toLowerCase() == "importumania")
-		{
-			dad.alpha = 0;
-			boyfriend.alpha = 0;
-			gf.alpha = 0;
-		}
-		
-		if (SONG.song.toLowerCase() == "foolhardy")
-		{
-			dad.alpha = 0;
-		}
 		
 		subtitleManager = new SubtitleManager();
 		subtitleManager.cameras = [camHUD];
@@ -1902,1003 +1398,25 @@ class PlayState extends MusicBeatState
 		var stageName:String = '';
 		switch (bgName)
 		{
-			case 'house' | 'house-night' | 'house-sunset':
-				bgZoom = 0.8;
-				
-				var skyType:String = '';
-				var assetType:String = '';
-				switch (bgName)
-				{
-					case 'house':
-						stageName = 'daveHouse';
-						skyType = 'sky';
-					case 'house-night':
-						stageName = 'daveHouse_night';
-						skyType = 'sky_night';
-						assetType = 'night/';
-					case 'house-sunset':
-						stageName = 'daveHouse_sunset';
-						skyType = 'sky_sunset';
-				}
-				var bg:BGSprite = new BGSprite('bg', -600, -300, Paths.image('backgrounds/shared/${skyType}'), null, 0.6, 0.6);
-				sprites.add(bg);
-				add(bg);
-				
-				var stageHills:BGSprite = new BGSprite('stageHills', -834, -159, Paths.image('backgrounds/dave-house/${assetType}hills'), null, 0.7, 0.7);
-				sprites.add(stageHills);
-				add(stageHills);
+			case 'glitchy-void':
+				bgZoom = 0.7;
 
-				var grassbg:BGSprite = new BGSprite('grassbg', -1205, 580, Paths.image('backgrounds/dave-house/${assetType}grass bg'), null);
-				sprites.add(grassbg);
-				add(grassbg);
-	
-				var gate:BGSprite = new BGSprite('gate', -755, 250, Paths.image('backgrounds/dave-house/${assetType}gate'), null);
-				sprites.add(gate);
-				add(gate);
-	
-				var stageFront:BGSprite = new BGSprite('stageFront', -832, 505, Paths.image('backgrounds/dave-house/${assetType}grass'), null);
-				sprites.add(stageFront);
-				add(stageFront);
-
-				if (SONG.song.toLowerCase() == 'insanity' || SONG.song.toLowerCase() == 'insanity-2.5' || localFunny == CharacterFunnyEffect.Recurser)
-				{
-					var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('backgrounds/void/redsky_insanity'), null, 1, 1, true, true);
-					bg.alpha = 0.75;
-					bg.visible = false;
-					add(bg);
-					// below code assumes shaders are always enabled which is bad
-					voidShader(bg);
-				}
-
-				var variantColor = getBackgroundColor(stageName);
-				if (stageName != 'daveHouse_night')
-				{
-					stageHills.color = variantColor;
-					grassbg.color = variantColor;
-					gate.color = variantColor;
-					stageFront.color = variantColor;
-				}
-			case 'inside-house':
-				bgZoom = 0.6;
-				stageName = 'insideHouse';
-
-				var bg:BGSprite = new BGSprite('bg', -1000, -350, Paths.image('backgrounds/inside_house'), null);
+				var bg:BGSprite = new BGSprite('void', -600, -200, Paths.image('backgrounds/void/scarybg'), null, 1, 1, true, true);
+				bg.setGraphicSize(Std.int(bg.width * 3));
 				sprites.add(bg);
 				add(bg);
 
-			case 'farm' | 'farm-night' | 'farm-sunset':
-				bgZoom = 0.8;
-
-				switch (bgName.toLowerCase())
-				{
-					case 'farm-night':
-						stageName = 'bambiFarmNight';
-					case 'farm-sunset':
-						stageName = 'bambiFarmSunset';
-					default:
-						stageName = 'bambiFarm';
-				}
-	
-				var skyType:String = stageName == 'bambiFarmNight' ? 'sky_night' : stageName == 'bambiFarmSunset' ? 'sky_sunset' : 'sky';
-				
-				var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('backgrounds/shared/' + skyType), null, 0.6, 0.6);
-				sprites.add(bg);
-				add(bg);
-
-				if (SONG.song.toLowerCase() == 'maze')
-				{
-					var sunsetBG:BGSprite = new BGSprite('sunsetBG', -600, -200, Paths.image('backgrounds/shared/sky_sunset'), null, 0.6, 0.6);
-					sunsetBG.alpha = 0;
-					sprites.add(sunsetBG);
-					add(sunsetBG);
-
-					var nightBG:BGSprite = new BGSprite('nightBG', -600, -200, Paths.image('backgrounds/shared/sky_night'), null, 0.6, 0.6);
-					nightBG.alpha = 0;
-					sprites.add(nightBG);
-					add(nightBG);
-					if (isStoryMode)
-					{
-						health -= 0.2;
-					}
-				}
-				var flatgrass:BGSprite = new BGSprite('flatgrass', 350, 75, Paths.image('backgrounds/farm/gm_flatgrass'), null, 0.65, 0.65);
-				flatgrass.setGraphicSize(Std.int(flatgrass.width * 0.34));
-				flatgrass.updateHitbox();
-				sprites.add(flatgrass);
-				
-				var hills:BGSprite = new BGSprite('hills', -173, 100, Paths.image('backgrounds/farm/orangey hills'), null, 0.65, 0.65);
-				sprites.add(hills);
-				
-				var farmHouse:BGSprite = new BGSprite('farmHouse', 100, 125, Paths.image('backgrounds/farm/funfarmhouse', 'shared'), null, 0.7, 0.7);
-				farmHouse.setGraphicSize(Std.int(farmHouse.width * 0.9));
-				farmHouse.updateHitbox();
-				sprites.add(farmHouse);
-
-				var grassLand:BGSprite = new BGSprite('grassLand', -600, 500, Paths.image('backgrounds/farm/grass lands', 'shared'), null);
-				sprites.add(grassLand);
-
-				var cornFence:BGSprite = new BGSprite('cornFence', -400, 200, Paths.image('backgrounds/farm/cornFence', 'shared'), null);
-				sprites.add(cornFence);
-				
-				var cornFence2:BGSprite = new BGSprite('cornFence2', 1100, 200, Paths.image('backgrounds/farm/cornFence2', 'shared'), null);
-				sprites.add(cornFence2);
-
-				var bagType = FlxG.random.int(0, 1000) == 0 ? 'popeye' : 'cornbag';
-				var cornBag:BGSprite = new BGSprite('cornFence2', 1200, 550, Paths.image('backgrounds/farm/$bagType', 'shared'), null);
-				sprites.add(cornBag);
-				
-				var sign:BGSprite = new BGSprite('sign', 0, 350, Paths.image('backgrounds/farm/sign', 'shared'), null);
-				sprites.add(sign);
-
-				var variantColor:FlxColor = getBackgroundColor(stageName);
-				
-				flatgrass.color = variantColor;
-				hills.color = variantColor;
-				farmHouse.color = variantColor;
-				grassLand.color = variantColor;
-				cornFence.color = variantColor;
-				cornFence2.color = variantColor;
-				cornBag.color = variantColor;
-				sign.color = variantColor;
-				
-				add(flatgrass);
-				add(hills);
-				add(farmHouse);
-				add(grassLand);
-				add(cornFence);
-				add(cornFence2);
-				add(cornBag);
-				add(sign);
-
-				if (['blocked', 'corn-theft', 'maze', 'mealie', 'indignancy'].contains(SONG.song.toLowerCase()) && !MathGameState.failedGame && FlxG.random.int(0, 4) == 0)
+				if (['unfairness'].contains(SONG.song.toLowerCase()))
 				{
 					FlxG.mouse.visible = true;
-					baldi = new BGSprite('baldi', 400, 110, Paths.image('backgrounds/farm/baldo', 'shared'), null, 0.65, 0.65);
-					baldi.setGraphicSize(Std.int(baldi.width * 0.31));
+					baldi = new BGSprite('baldi', -182, 977, Paths.image('backgrounds/void/baldo', 'shared'), null, 0.65, 0.65);
+					baldi.setGraphicSize(Std.int(baldi.width * 0.5));
 					baldi.updateHitbox();
 					baldi.color = variantColor;
-					sprites.insert(members.indexOf(hills), baldi);
-					insert(members.indexOf(hills), baldi);
+					sprites.insert(members.indexOf(bg), baldi);
+					insert(members.indexOf(bg), baldi);
 				}
-
-				if (SONG.song.toLowerCase() == 'splitathon')
-				{
-					var picnic:BGSprite = new BGSprite('picnic', 1050, 650, Paths.image('backgrounds/farm/picnic_towel_thing', 'shared'), null);
-					sprites.insert(sprites.members.indexOf(cornBag), picnic);
-					picnic.color = variantColor;
-					insert(members.indexOf(cornBag), picnic);
-				}
-			case 'scrapped-farm' | 'scrapped-farm-night' | 'scrapped-farm-sunset':
-				defaultCamZoom = 1.2;
-
-				switch (bgName.toLowerCase())
-				{
-					case 'scrapped-farm-night':
-						curStage = 'scrappedbambiFarmNight';
-					case 'scrapped-farm-sunset':
-						curStage = 'scrappedbambiFarmSunset';
-					default:
-						curStage = 'scrappedbambiFarm';
-				}
-	
-				var skyType:String = curStage == 'scrappedbambiFarmNight' ? 'sky_night' : curStage == 'scrappedbambiFarmSunset' ? 'sky_sunset' : 'sky';
-				
-				var bg:BGSprite = new BGSprite('bg', -400, 0, Paths.image('backgrounds/shared/' + skyType), null, 0.9, 0.9);
-				sprites.add(bg);
-
-				if (SONG.song.toLowerCase() == 'maze-2.5')
-				{
-					var sunsetBG:BGSprite = new BGSprite('sunsetBG', -700, 0, Paths.image('backgrounds/shared/sky_sunset'), null, 0.9, 0.9);
-					sunsetBG.alpha = 0;
-					add(sunsetBG);
-					sprites.add(sunsetBG);
-
-					var nightBG:BGSprite = new BGSprite('nightBG', -700, 0, Paths.image('backgrounds/shared/sky_night'), null, 0.9, 0.9);
-					nightBG.alpha = 0;
-					add(nightBG);
-					sprites.add(nightBG);
-				}
-				var flatGrass:BGSprite = new BGSprite('flatGrass', 500, 200, Paths.image('backgrounds/farm-scrapped/gm_flatgrass'), null, 0.9, 0.9);
-				sprites.add(flatGrass);
-				
-				var farmHouse:BGSprite = new BGSprite('farmHouse', -700, 50, Paths.image('backgrounds/farm-scrapped/farmhouse'), null, 0.9, 1);
-				sprites.add(farmHouse);
-				
-				var path:BGSprite = new BGSprite('path', -700, 500, Paths.image('backgrounds/farm-scrapped/path'), null);
-				sprites.add(path);
-				
-				var cornMaze:BGSprite = new BGSprite('cornMaze', -300, 200, Paths.image('backgrounds/farm-scrapped/cornmaze'), null);
-				sprites.add(cornMaze);
-				
-				var cornMaze2:BGSprite = new BGSprite('cornMaze2', 1000, 150, Paths.image('backgrounds/farm-scrapped/cornmaze2'), null);
-				sprites.add(cornMaze2);
-				
-				var cornBag:BGSprite = new BGSprite('cornBag', 1150, 500, Paths.image('backgrounds/farm-scrapped/cornbag'), null);
-				sprites.add(cornBag);
-				
-				var variantColor:FlxColor = getBackgroundColor(stageName);
-				
-				flatGrass.color = variantColor;
-				farmHouse.color = variantColor;
-				path.color = variantColor;
-				cornMaze.color = variantColor;
-				cornMaze2.color = variantColor;
-				cornBag.color = variantColor;
-				
-				add(bg);
-				add(flatGrass);
-				add(farmHouse);
-				add(path);
-				add(cornMaze);
-				add(cornMaze2);
-				add(cornBag);
-			case 'farm-2.5' | 'farm-night-2.5' | 'farm-sunset-2.5':
-				bgZoom = 0.9;
-
-				switch (bgName.toLowerCase())
-				{
-					case 'farm-night-2.5':
-						curStage = 'bambiFarmNight2.5';
-					case 'farm-sunset-2.5':
-						curStage = 'bambiFarmSunset2.5';
-					default:
-						curStage = 'bambiFarm2.5';
-				}
-	
-				var skyType:String = curStage == 'scrappedbambiFarmNight' ? 'sky_night' : curStage == 'scrappedbambiFarmSunset' ? 'sky_sunset' : 'sky';
-				
-				var bg:BGSprite = new BGSprite('bg', -400, 0, Paths.image('backgrounds/shared/' + skyType), null, 0.9, 0.9);
-				//sprites.add(bg);
-	
-				var hills:FlxSprite = new FlxSprite(-250, 200).loadGraphic(Paths.image('backgrounds/farm-2.5/orangey hills'));
-				hills.antialiasing = FlxG.save.data.globalAntialiasing;
-				hills.scrollFactor.set(0.9, 0.7);
-				hills.active = false;
-				//sprites.add(hills);
-	
-				var farm:FlxSprite = new FlxSprite(150, 250).loadGraphic(Paths.image('backgrounds/farm-2.5/funfarmhouse'));
-				farm.antialiasing = FlxG.save.data.globalAntialiasing;
-				farm.scrollFactor.set(1.1, 0.9);
-				farm.active = false;
-				//sprites.add(farm);
-				
-				var foreground:FlxSprite = new FlxSprite(-400, 600).loadGraphic(Paths.image('backgrounds/farm-2.5/grass lands'));
-				foreground.antialiasing = FlxG.save.data.globalAntialiasing;
-				foreground.active = false;
-				//sprites.add(foreground);
-				
-				var cornSet:FlxSprite = new FlxSprite(-350, 325).loadGraphic(Paths.image('backgrounds/farm-2.5/Cornys'));
-				cornSet.antialiasing = FlxG.save.data.globalAntialiasing;
-				cornSet.active = false;
-				//sprites.add(cornSet);
-				
-				var cornSet2:FlxSprite = new FlxSprite(1050, 325).loadGraphic(Paths.image('backgrounds/farm-2.5/Cornys'));
-				cornSet2.antialiasing = FlxG.save.data.globalAntialiasing;
-				cornSet2.active = false;
-				//sprites.add(cornSet2);
-				
-				var fence:FlxSprite = new FlxSprite(-350, 450).loadGraphic(Paths.image('backgrounds/farm-2.5/crazy fences'));
-				fence.antialiasing = FlxG.save.data.globalAntialiasing;
-				fence.active = false;
-				//sprites.add(fence);
-	
-				var sign:FlxSprite = new FlxSprite(0, 500).loadGraphic(Paths.image('backgrounds/farm-2.5/Sign'));
-				sign.antialiasing = FlxG.save.data.globalAntialiasing;
-				sign.active = false;
-				//sprites.add(sign);
-
-				var variantColor:FlxColor = getBackgroundColor(stageName);
-
-				hills.color = variantColor;
-				farm.color = variantColor;
-				foreground.color = variantColor;
-				cornSet.color = variantColor;
-				cornSet2.color = variantColor;
-				fence.color = variantColor;
-				sign.color = variantColor;
-				
-				add(bg);
-				add(hills);
-				add(farm);
-				add(foreground);
-				add(cornSet);
-				add(cornSet2);
-				add(fence);
-				add(sign);
-	
-				UsingNewCam = true;
-			case 'old-farm' | 'old-farm-night' | 'old-farm-sunset':
-				bgZoom = 0.9;
-
-				switch (bgName.toLowerCase())
-				{
-					case 'old-farm-night':
-						curStage = 'oldbambiFarmNight';
-					case 'old-farm-sunset':
-						curStage = 'oldbambiFarmSunset';
-					default:
-						curStage = 'oldbambiFarm';
-				}
-
-				var skyType:String = curStage == 'oldbambiFarmNight' ? 'sky_night' : curStage == 'oldbambiFarmSunset' ? 'sky_sunset' : 'sky';
-
-				var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('backgrounds/shared/' + skyType));
-				bg.antialiasing = FlxG.save.data.globalAntialiasing;
-				bg.scrollFactor.set(0.9, 0.9);
-				bg.active = false;
-				//sprites.add(bg);
-
-				if (SONG.song.toLowerCase() == 'old-Maze')
-				{
-					var sunsetBG:BGSprite = new BGSprite('sunsetBG', -700, 0, Paths.image('backgrounds/shared/sky_sunset'), null, 0.9, 0.9);
-					sunsetBG.antialiasing = FlxG.save.data.globalAntialiasing;
-					sunsetBG.alpha = 0;
-					add(sunsetBG);
-					sprites.add(sunsetBG);
-	
-					var nightBG:BGSprite = new BGSprite('nightBG', -700, 0, Paths.image('backgrounds/shared/sky_night'), null, 0.9, 0.9);
-					nightBG.antialiasing = FlxG.save.data.globalAntialiasing;
-					nightBG.alpha = 0;
-					add(nightBG);
-					sprites.add(nightBG);
-				}
-
-				var sun:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('backgrounds/old-farm/sun'));
-				sun.antialiasing = FlxG.save.data.globalAntialiasing;
-				sun.scrollFactor.set(1, 1);
-				sun.active = false;
-				//sprites.add(sun);
-
-				var flatgrass:FlxSprite = new FlxSprite(-600, -100).loadGraphic(Paths.image('backgrounds/old-farm/gm_flatgrass'));
-				flatgrass.setGraphicSize(Std.int(flatgrass.width * 0.85));
-				flatgrass.updateHitbox();
-				flatgrass.antialiasing = FlxG.save.data.globalAntialiasing;
-				flatgrass.scrollFactor.set(0.7, 0.7);
-				flatgrass.active = false;
-				//sprites.add(flatgrass);
-				
-				var hills:FlxSprite = new FlxSprite(-600, -75).loadGraphic(Paths.image('backgrounds/old-farm/background'));
-				hills.setGraphicSize(Std.int(hills.width / 1.2));
-				hills.updateHitbox();
-				hills.antialiasing = FlxG.save.data.globalAntialiasing;
-				hills.scrollFactor.set(0.7, 0.7);
-				hills.active = false;
-				//sprites.add(hills);
-				
-				var farm:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('backgrounds/old-farm/farm'));
-				farm.antialiasing = FlxG.save.data.globalAntialiasing;
-				farm.scrollFactor.set(0.9, 0.9);
-				farm.active = false;
-				//sprites.add(farm);
-				
-				var corn:FlxSprite = new FlxSprite(-325, 40).loadGraphic(Paths.image('backgrounds/old-farm/corn'));
-				corn.setGraphicSize(Std.int(corn.width * 0.75));
-				corn.updateHitbox();
-				corn.antialiasing = FlxG.save.data.globalAntialiasing;
-				corn.scrollFactor.set(0.9, 0.9);
-				corn.active = false;
-				//sprites.add(corn);
-				
-				var sign:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('backgrounds/old-farm/sign'));
-				sign.antialiasing = FlxG.save.data.globalAntialiasing;
-				sign.scrollFactor.set(0.9, 0.9);
-				sign.active = false;
-				//sprites.add(sign);
-				
-				var foreground:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('backgrounds/old-farm/foreground'));
-				foreground.antialiasing = FlxG.save.data.globalAntialiasing;
-				foreground.scrollFactor.set(1, 1);
-				foreground.active = false;
-				UsingNewCam = true;
-				//sprites.add(foreground);
-
-				var variantColor:FlxColor = getBackgroundColor(stageName);
-				
-				flatgrass.color = variantColor;
-				hills.color = variantColor;
-				farm.color = variantColor;
-				corn.color = variantColor;
-				sign.color = variantColor;
-				foreground.color = variantColor;
-
-				add(bg);
-				add(sun);
-				add(flatgrass);
-				add(hills);
-				add(farm);
-				add(corn);
-				add(sign);
-				add(foreground);
-			case 'festival':
-				bgZoom = 0.7;
-				stageName = 'festival';
-				
-				var mainChars:Array<Dynamic> = null;
-				switch (SONG.song.toLowerCase())
-				{
-					case 'shredder':
-						mainChars = [
-							//char name, prefix, size, x, y, flip x
-							['dave', 'idle', 0.8, 175, 100],
-							['tristan', 'bop', 0.4, 800, 325]
-						];
-					case 'greetings':
-						if (isGreetingsCutscene)
-						{
-							mainChars = [
-								['bambi', 'bambi idle', 0.9, 400, 350],
-								['tristan', 'bop', 0.4, 800, 325]
-							];
-						}
-						else
-						{
-							mainChars = [
-								['dave', 'idle', 0.8, 175, 100],
-								['bambi', 'bambi idle', 0.9, 700, 350],
-							];
-						}
-					case 'interdimensional':
-						mainChars = [
-							['bambi', 'bambi idle', 0.9, 400, 350],
-							['tristan', 'bop', 0.4, 800, 325]
-						];
-				}
-				var bg:BGSprite = new BGSprite('bg', -400, -230, Paths.image('backgrounds/shared/sky_festival'), null, 0.6, 0.6);
-				sprites.add(bg);
-				add(bg);
-
-				var flatGrass:BGSprite = new BGSprite('flatGrass', 800, -100, Paths.image('backgrounds/festival/gm_flatgrass'), null, 0.7, 0.7);
-				sprites.add(flatGrass);
-				add(flatGrass);
-
-				var farmHouse:BGSprite = new BGSprite('farmHouse', -300, -150, Paths.image('backgrounds/festival/farmHouse'), null, 0.7, 0.7);
-				sprites.add(farmHouse);
-				add(farmHouse);
-				
-				var hills:BGSprite = new BGSprite('hills', -1000, -100, Paths.image('backgrounds/festival/hills'), null, 0.7, 0.7);
-				sprites.add(hills);
-				add(hills);
-
-				var corn:BGSprite = new BGSprite('corn', -1000, 120, 'backgrounds/festival/corn', [
-					new Animation('corn', 'idle', 5, true, [false, false])
-				], 0.85, 0.85, true, true);
-				corn.animation.play('corn');
-				sprites.add(corn);
-				add(corn);
-
-				var cornGlow:BGSprite = new BGSprite('cornGlow', -1000, 120, 'backgrounds/festival/cornGlow', [
-					new Animation('cornGlow', 'idle', 5, true, [false, false])
-				], 0.85, 0.85, true, true);
-				cornGlow.blend = BlendMode.ADD;
-				cornGlow.animation.play('cornGlow');
-				sprites.add(cornGlow);
-				add(cornGlow);
-				
-				var backGrass:BGSprite = new BGSprite('backGrass', -1000, 475, Paths.image('backgrounds/festival/backGrass'), null, 0.85, 0.85);
-				sprites.add(backGrass);
-				add(backGrass);
-				
-				var crowd = new BGSprite('crowd', -500, -150, 'backgrounds/festival/crowd', [
-					new Animation('idle', 'crowdDance', 24, true, [false, false])
-				], 0.85, 0.85, true, true);
-				crowd.animation.play('idle');
-				sprites.add(crowd);
-				crowdPeople.add(crowd);
-				add(crowd);
-				
-				for (i in 0...mainChars.length)
-				{					
-					var crowdChar = new BGSprite(mainChars[i][0], mainChars[i][3], mainChars[i][4], 'backgrounds/festival/mainCrowd/${mainChars[i][0]}', [
-						new Animation('idle', mainChars[i][1], 24, false, [false, false], null)
-					], 0.85, 0.85, true, true);
-					crowdChar.setGraphicSize(Std.int(crowdChar.width * mainChars[i][2]));
-					crowdChar.updateHitbox();
-					sprites.add(crowdChar);
-					crowdPeople.add(crowdChar);
-					add(crowdChar);
-				}
-				
-				var frontGrass:BGSprite = new BGSprite('frontGrass', -1300, 600, Paths.image('backgrounds/festival/frontGrass'), null, 1, 1);
-				sprites.add(frontGrass);
-				add(frontGrass);
-
-				var stageGlow:BGSprite = new BGSprite('stageGlow', -450, 300, 'backgrounds/festival/generalGlow', [
-					new Animation('glow', 'idle', 5, true, [false, false])
-				], 0, 0, true, true);
-				stageGlow.blend = BlendMode.ADD;
-				stageGlow.animation.play('glow');
-				sprites.add(stageGlow);
-				add(stageGlow);
-
-			case 'backyard':
-				bgZoom = 0.7;
-				stageName = 'backyard';
-
-				var festivalSky:BGSprite = new BGSprite('bg', -400, -400, Paths.image('backgrounds/shared/sky_festival'), null, 0.6, 0.6);
-				sprites.add(festivalSky);
-				add(festivalSky);
-
-				if (SONG.song.toLowerCase() == 'rano')
-				{
-					var sunriseBG:BGSprite = new BGSprite('sunriseBG', -600, -400, Paths.image('backgrounds/shared/sky_sunrise'), null, 0.6, 0.6);
-					sunriseBG.alpha = 0;
-					sprites.add(sunriseBG);
-					add(sunriseBG);
-
-					var skyBG:BGSprite = new BGSprite('bg', -600, -400, Paths.image('backgrounds/shared/sky'), null, 0.6, 0.6);
-					skyBG.alpha = 0;
-					sprites.add(skyBG);
-					add(skyBG);
-				}
-
-				var hills:BGSprite = new BGSprite('hills', -1330, -432, Paths.image('backgrounds/backyard/hills', 'shared'), null, 0.75, 0.75, true);
-				sprites.add(hills);
-				add(hills);
-
-				var grass:BGSprite = new BGSprite('grass', -800, 150, Paths.image('backgrounds/backyard/supergrass', 'shared'), null, 1, 1, true);
-				sprites.add(grass);
-				add(grass);
-
-				var gates:BGSprite = new BGSprite('gates', 564, -33, Paths.image('backgrounds/backyard/gates', 'shared'), null, 1, 1, true);
-				sprites.add(gates);
-				add(gates);
-				
-				var bear:BGSprite = new BGSprite('bear', -1035, -710, Paths.image('backgrounds/backyard/bearDude', 'shared'), null, 0.95, 0.95, true);
-				sprites.add(bear);
-				add(bear);
-
-				var house:BGSprite = new BGSprite('house', -1025, -323, Paths.image('backgrounds/backyard/house', 'shared'), null, 0.95, 0.95, true);
-				sprites.add(house);
-				add(house);
-
-				var grill:BGSprite = new BGSprite('grill', -489, 452, Paths.image('backgrounds/backyard/grill', 'shared'), null, 0.95, 0.95, true);
-				sprites.add(grill);
-				add(grill);
-
-				var variantColor = getBackgroundColor(stageName);
-
-				hills.color = variantColor;
-				bear.color = variantColor;
-				grass.color = variantColor;
-				gates.color = variantColor;
-				house.color = variantColor;
-				grill.color = variantColor;
-			case 'desktop':
-				bgZoom = 0.5;
-				stageName = 'desktop';
-
-				expungedBG = new BGSprite('void', -600, -200, '', null, 1, 1, false, true);
-				expungedBG.loadGraphic(Paths.image('backgrounds/void/exploit/creepyRoom', 'shared'));
-				expungedBG.setPosition(0, 200);
-				expungedBG.setGraphicSize(Std.int(expungedBG.width * 2));
-				expungedBG.scrollFactor.set();
-				expungedBG.antialiasing = false;
-				sprites.add(expungedBG);
-				add(expungedBG);
-				voidShader(expungedBG);
-			case 'red-void' | 'green-void' | 'glitchy-void' | "banana-hell":
-				bgZoom = 0.7;
-
-				var bg:BGSprite = new BGSprite('void', -600, -200, '', null, 1, 1, false, true);
-				
-				switch (bgName.toLowerCase())
-				{
-					case 'red-void':
-						bgZoom = 0.8;
-						bg.loadGraphic(Paths.image('backgrounds/void/redsky', 'shared'));
-						stageName = 'daveEvilHouse';
-						weirdBG = bg;
-					case 'green-void':
-						stageName = 'cheating';
-						bg.loadGraphic(Paths.image('backgrounds/void/cheater'));
-						bg.setPosition(-700, -350);
-						bg.setGraphicSize(Std.int(bg.width * 2));
-						weirdBG = bg;
-					case 'glitchy-void':
-						bg.loadGraphic(Paths.image('backgrounds/void/scarybg'));
-						bg.setPosition(0, 200);
-						bg.setGraphicSize(Std.int(bg.width * 3));
-						weirdBG = bg;
-						stageName = 'unfairness';
-					case 'banana-hell': // this is a Cockey moment
-						bg.loadGraphic(Paths.image('backgrounds/void/bananaVoid1'));
-						bg.setPosition(-700, -300);
-						bg.setGraphicSize(Std.int(bg.width * 2.55), Std.int(bg.height * 2));
-						weirdBG = bg;
-						stageName = 'banana-land';
-				}
-				sprites.add(bg);
-				add(bg);
-				voidShader(bg);
-			case 'interdimension-void':
-				bgZoom = 0.6;
-				stageName = 'interdimension';
-
-				var bg:BGSprite = new BGSprite('void', -700, -350, Paths.image('backgrounds/void/interdimensions/interdimensionVoid'), null, 1, 1, false, true);
-				bg.setGraphicSize(Std.int(bg.width * 1.75));
-				sprites.add(bg);
-				add(bg);
-
-				voidShader(bg);
-				
-				interdimensionBG = bg;
-
-				for (char in ['ball', 'bimpe', 'maldo', 'memes kids', 'muko', 'ruby man', 'tristan', 'bambi'])
-				{
-					var bgChar = new FlyingBGChar(char, Paths.image('backgrounds/festival/scaredCrowd/$char'));
-					sprites.add(bgChar);
-					flyingBgChars.add(bgChar);
-				}
-				add(flyingBgChars);
-			case 'exbungo-land':
-				bgZoom = 0.7;
-				stageName = 'kabunga';
-				
-				var bg:BGSprite = new BGSprite('bg', -320, -160, Paths.image('backgrounds/void/exbongo/Exbongo'), null, 1, 1, true, true);
-				bg.setGraphicSize(Std.int(bg.width * 1.5));
-				sprites.add(bg);
-				add(bg);
-
-				var circle:BGSprite = new BGSprite('circle', -30, 550, Paths.image('backgrounds/void/exbongo/Circle'), null);
-				sprites.add(circle);	
-				add(circle);
-
-				place = new BGSprite('place', 860, -15, Paths.image('backgrounds/void/exbongo/Place'), null);
-				sprites.add(place);	
-				add(place);
-
-				if (['kabunga'].contains(SONG.song.toLowerCase()) && FlxG.random.int(0, 4) == 0)
-				{
-					FlxG.mouse.visible = true;
-					hat = new BGSprite('hat', -30, 550, 'eletric-cockadoodledoo/hat', [
-						new Animation('idle', 'hat', 24, true, [false, false])
-					], 1, 1, true, true);
-					hat.setGraphicSize(Std.int(hat.width * 0.36));
-					hat.animation.play('idle');
-					hat.updateHitbox();
-					sprites.insert(members.indexOf(circle), hat);
-					insert(members.indexOf(circle), hat);
-				}
-				
-				voidShader(bg);
-			case 'rapBattle':
-				bgZoom = 1;
-				stageName = 'rapLand';
-
-				var bg:BGSprite = new BGSprite('rapBG', -640, -360, Paths.image('backgrounds/rapBattle'), null);
-				sprites.add(bg);
-				add(bg);
-			case 'freeplay':
-				bgZoom = 0.4;
-				stageName = 'freeplay';
-				
-				darkSky = new BGSprite('darkSky', darkSkyStartPos, 0, Paths.image('recursed/darkSky'), null, 1, 1, true);
-				darkSky.scale.set((1 / bgZoom) * 2, 1 / bgZoom);
-				darkSky.updateHitbox();
-				darkSky.y = (FlxG.height - darkSky.height) / 2;
-				add(darkSky);
-				
-				darkSky2 = new BGSprite('darkSky', darkSky.x - darkSky.width, 0, Paths.image('recursed/darkSky'), null, 1, 1, true);
-				darkSky2.scale.set((1 / bgZoom) * 2, 1 / bgZoom);
-				darkSky2.updateHitbox();
-				darkSky2.x = darkSky.x - darkSky.width;
-				darkSky2.y = (FlxG.height - darkSky2.height) / 2;
-				add(darkSky2);
-
-				freeplayBG = new BGSprite('freeplay', 0, 0, daveBG, null, 0, 0, true);
-				freeplayBG.setGraphicSize(Std.int(freeplayBG.width * 2));
-				freeplayBG.updateHitbox();
-				freeplayBG.screenCenter();
-				freeplayBG.color = FlxColor.multiply(0xFF4965FF, FlxColor.fromRGB(44, 44, 44));
-				freeplayBG.alpha = 0;
-				add(freeplayBG);
-				
-				charBackdrop = new FlxBackdrop(Paths.image('recursed/daveScroll'), 1, 1, true, true);
-				charBackdrop.antialiasing = true;
-				charBackdrop.scale.set(2, 2);
-				charBackdrop.screenCenter();
-				charBackdrop.color = FlxColor.multiply(charBackdrop.color, FlxColor.fromRGB(44, 44, 44));
-				charBackdrop.alpha = 0;
-				add(charBackdrop);
-
-				initAlphabet(daveSongs);
-			case 'roof':
-				bgZoom = 0.8;
-				stageName = 'roof';
-				var roof:BGSprite = new BGSprite('roof', -584, -397, Paths.image('backgrounds/gm_house5', 'shared'), null, 1, 1, true);
-				roof.setGraphicSize(Std.int(roof.width * 2));
-				roof.antialiasing = false;
-				add(roof);
-			case 'bedroom':
-				bgZoom = 0.8;
-				stageName = 'bedroom';
-				
-				var sky:BGSprite = new BGSprite('nightSky', -285, 318, Paths.image('backgrounds/bedroom/sky', 'shared'), null, 0.8, 0.8, true);
-				sprites.add(sky);
-				add(sky);
-
-				var bg:BGSprite = new BGSprite('bg', -687, 0, Paths.image('backgrounds/bedroom/bg', 'shared'), null, 1, 1, true);
-				sprites.add(bg);
-				add(bg);
-
-				var baldi:BGSprite = new BGSprite('baldi', 788, 788, Paths.image('backgrounds/bedroom/bed', 'shared'), null, 1, 1, true);
-				sprites.add(baldi);
-				add(baldi);
-
-				tristanInBotTrot = new BGSprite('tristan', 888, 688, 'backgrounds/bedroom/TristanSitting', [
-					new Animation('idle', 'daytime', 24, true, [false, false]),
-					new Animation('idleNight', 'nighttime', 24, true, [false, false])
-				], 1, 1, true, true);
-				tristanInBotTrot.setGraphicSize(Std.int(tristanInBotTrot.width * 0.8));
-				tristanInBotTrot.animation.play('idle');
-				add(tristanInBotTrot);
-				if (formoverride == 'tristan' || formoverride == 'tristan-golden' || formoverride == 'tristan-golden-glowing') {
-					remove(tristanInBotTrot);	
-			    }
-			case 'office':
-				bgZoom = 0.9;
-				stageName = 'office';
-				
-				var backFloor:BGSprite = new BGSprite('backFloor', -500, -310, Paths.image('backgrounds/office/backFloor'), null, 1, 1);
-				sprites.add(backFloor);
-				add(backFloor);
-			case 'desert':
-				bgZoom = 0.5;
-				stageName = 'desert';
-
-				var bg:BGSprite = new BGSprite('bg', -900, -400, Paths.image('backgrounds/shared/sky'), null, 0.2, 0.2);
-				bg.setGraphicSize(Std.int(bg.width * 2));
-				bg.updateHitbox();
-				sprites.add(bg);
-				add(bg);
-
-				var sunsetBG:BGSprite = new BGSprite('sunsetBG', -900, -400, Paths.image('backgrounds/shared/sky_sunset'), null, 0.2, 0.2);
-				sunsetBG.setGraphicSize(Std.int(sunsetBG.width * 2));
-				sunsetBG.updateHitbox();
-				sunsetBG.alpha = 0;
-				sprites.add(sunsetBG);
-				add(sunsetBG);
-				
-				var nightBG:BGSprite = new BGSprite('nightBG', -900, -400, Paths.image('backgrounds/shared/sky_night'), null, 0.2, 0.2);
-				nightBG.setGraphicSize(Std.int(nightBG.width * 2));
-				nightBG.updateHitbox();
-				nightBG.alpha = 0;
-				sprites.add(nightBG);
-				add(nightBG);
-				
-				desertBG = new BGSprite('desert', -786, -500, Paths.image('backgrounds/wedcape_from_cali_backlground', 'shared'), null, 1, 1, true);
-				desertBG.setGraphicSize(Std.int(desertBG.width * 1.2));
-				desertBG.updateHitbox();
-				sprites.add(desertBG);
-				add(desertBG);
-
-				desertBG2 = new BGSprite('desert2', desertBG.x - desertBG.width, desertBG.y, Paths.image('backgrounds/wedcape_from_cali_backlground', 'shared'), null, 1, 1, true);
-				desertBG2.setGraphicSize(Std.int(desertBG2.width * 1.2));
-				desertBG2.updateHitbox();
-				sprites.add(desertBG2);
-				add(desertBG2);
-				
-				sign = new BGSprite('sign', 500, 450, Paths.image('california/leavingCalifornia', 'shared'), null, 1, 1, true);
-				sprites.add(sign);
-				add(sign);
-
-				train = new BGSprite('train', -800, 500, 'california/train', [
-					new Animation('idle', 'trainRide', 24, true, [false, false])
-				], 1, 1, true, true);
-				train.animation.play('idle');
-				train.setGraphicSize(Std.int(train.width * 2.5));
-				train.updateHitbox();
-				train.antialiasing = false;
-				sprites.add(train);
-				add(train);
-			case 'master':
-				bgZoom = 0.4;
-				stageName = 'master';
-
-				var space:BGSprite = new BGSprite('space', -1724, -971, Paths.image('backgrounds/shared/sky_space'), null, 1.2, 1.2);
-				space.setGraphicSize(Std.int(space.width * 10));
-				space.antialiasing = false;
-				sprites.add(space);
-				add(space);
-	
-				var land:BGSprite = new BGSprite('land', 675, 555, Paths.image('backgrounds/dave-house/land'), null, 0.9, 0.9);
-				sprites.add(land);
-				add(land);
-			case 'overdrive':
-				bgZoom = 0.8;
-				stageName = 'overdrive';
-
-				var stfu:BGSprite = new BGSprite('stfu', -583, -383, Paths.image('backgrounds/stfu'), null, 1, 1);
-				sprites.add(stfu);
-				add(stfu);
-			case 'garrettLand':
-				bgZoom = 0.85;
-				stageName = 'garrettLand';
-				
-				var bg:BGSprite = new BGSprite('bg', -50, -300, Paths.image('backgrounds/field/nightSky', 'shared'), null, 0.5, 0.3, true, true);
-				bg.antialiasing = FlxG.save.data.globalAntialiasing;
-				bg.setGraphicSize(Std.int(bg.width * 2));
-				sprites.add(bg);
-				add(bg);
-
-				var bgshit:BGSprite = new BGSprite('bgshit', -50, -300, Paths.image('backgrounds/field/blueGradient', 'shared'), null, 0.5, 0.3, true, true);
-				bgshit.antialiasing = FlxG.save.data.globalAntialiasing;
-				bgshit.setGraphicSize(Std.int(bg.width * 2));
-				sprites.add(bgshit);
-				add(bgshit);
-
-				var backGrass:BGSprite = new BGSprite('backGrass', 415, -300, Paths.image('backgrounds/field/grass', 'shared'), null, 0.7, 0.5, true, true);
-				backGrass.antialiasing = FlxG.save.data.globalAntialiasing;
-				backGrass.setGraphicSize(Std.int(backGrass.width * 1.7));
-				sprites.add(backGrass);
-				add(backGrass);
-
-				var floor:BGSprite = new BGSprite('floor', 550, 370, Paths.image('backgrounds/field/floor', 'shared'), null, 1, 1, true, true);
-				floor.antialiasing = FlxG.save.data.globalAntialiasing;
-				floor.setGraphicSize(Std.int(floor.width * 2));
-				sprites.add(floor);
-				add(floor);
-
-				var gate:BGSprite = new BGSprite('gate', 550, 0, Paths.image('backgrounds/field/gates', 'shared'), null, 1.1, 1, true, true);
-				gate.antialiasing = FlxG.save.data.globalAntialiasing;
-				gate.setGraphicSize(Std.int(gate.width * 2));
-				sprites.add(gate);
-				add(gate);
-			case 'house-older':
-				bgZoom = 0.9;
-				stageName = 'house-older';
-				var assetType:String = '';
-
-				var bg:BGSprite = new BGSprite('davehousebackold', -600, -200, Paths.image('backgrounds/house-older/${assetType}davehousebackold'), null, 0.2, 0.2);
-				bg.antialiasing = FlxG.save.data.globalAntialiasing;
-				sprites.add(bg);
-				add(bg);
-
-				var floor:BGSprite = new BGSprite('davehousefloorold', -425, 625, Paths.image('backgrounds/house-older/${assetType}davehousefloorold'), null, 1.0, 1.0);
-				floor.antialiasing = FlxG.save.data.globalAntialiasing;
-				floor.setGraphicSize(Std.int(floor.width * 1.3));
-				floor.updateHitbox();
-				sprites.add(floor);
-				add(floor);
-			case 'stage_2':
-				bgZoom = 0.9;
-				stageName = 'stage_2';
-
-				var bg:BGSprite = new BGSprite('bg_lemon', -600, -200, Paths.image('backgrounds/bg_lemon'), null, 0.95, 0.95);
-				bg.setGraphicSize(Std.int(bg.width * 1.5));
-				bg.antialiasing = FlxG.save.data.globalAntialiasing;
-				bg.active = false;
-				sprites.add(bg);
-				add(bg);
-			case 'fuckyouZardyTime':
-				bgZoom = 0.9;
-				stageName = 'fuckyouZardyTime';
-
-				maze = new BGSprite('Stage', -600, -200, 'backgrounds/Maze', [
-					new Animation('idle', 'Stage', 16, true, [false, false])
-				], 0.9, 0.9, true, true);
-				maze.antialiasing = FlxG.save.data.globalAntialiasing;
-				maze.animation.play('idle');
-				maze.updateHitbox();
-				maze.antialiasing = true;
-				sprites.add(maze);
-				add(maze);
-			default:
-				bgZoom = 0.9;
-				stageName = 'stage';
-
-				var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('backgrounds/stage/stageback'), null, 0.9, 0.9);
-				sprites.add(bg);
-				add(bg);
-	
-				var stageFront:BGSprite = new BGSprite('stageFront', -650, 600, Paths.image('backgrounds/stage/stagefront'), null, 0.9, 0.9);
-				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-				stageFront.updateHitbox();
-				sprites.add(stageFront);
-				add(stageFront);
-	
-				var stageCurtains:BGSprite = new BGSprite('stageCurtains', -500, -300, Paths.image('backgrounds/stage/stagecurtains'), null, 1.3, 1.3);
-				stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
-				stageCurtains.updateHitbox();
-				sprites.add(stageCurtains);
-				add(stageCurtains);
 		}
-		// that one cuzsie and kapi part of eletric cockadoodledoo
-		if (SONG.song.toLowerCase() == "bananacore" || SONG.song.toLowerCase() == "electric-cockaldoodledoo" || SONG.song.toLowerCase() == "eletric-cockadoodledoo")
-			{
-				var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('eletric-cockadoodledoo/kapicuzsie_back'), null, 0.9, 0.9);
-				cuzsieKapiEletricCockadoodledoo.push(bg);
-				add(bg);
-				bg.visible = false;
-				bg.antialiasing = FlxG.save.data.globalAntialiasing;
-				
-				var stageFront:BGSprite = new BGSprite('stageFront', -650, 600, Paths.image('eletric-cockadoodledoo/kapicuzsie_front'), null, 0.9, 0.9);
-				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-				stageFront.updateHitbox();
-				cuzsieKapiEletricCockadoodledoo.push(stageFront);
-				add(stageFront);
-				stageFront.antialiasing = FlxG.save.data.globalAntialiasing;
-				stageFront.visible = false;
-			}
-			if (SONG.song.toLowerCase() == "importumania") // Bambi
-			{
-				var flatgrass:BGSprite = new BGSprite('flatgrass', 350, 75, Paths.image('backgrounds/farm/gm_flatgrass'), null, 0.65, 0.65);
-				flatgrass.setGraphicSize(Std.int(flatgrass.width * 0.34));
-				flatgrass.updateHitbox();
-				add(flatgrass);
-				bambiFarmDream.push(flatgrass);
-				flatgrass.visible = false;
-					
-				var hills:BGSprite = new BGSprite('hills', -173, 100, Paths.image('backgrounds/farm/orangey hills'), null, 0.65, 0.65);
-				add(hills);
-				bambiFarmDream.push(hills);
-				hills.visible = false;
-						
-				var farmHouse:BGSprite = new BGSprite('farmHouse', 100, 125, Paths.image('backgrounds/farm/funfarmhouse', 'shared'), null, 0.7, 0.7);
-				farmHouse.setGraphicSize(Std.int(farmHouse.width * 0.9));
-				farmHouse.updateHitbox();
-				add(farmHouse);
-				bambiFarmDream.push(farmHouse);
-				farmHouse.visible = false;
-		
-				var grassLand:BGSprite = new BGSprite('grassLand', -600, 500, Paths.image('backgrounds/farm/grass lands', 'shared'), null);
-				add(grassLand);
-				bambiFarmDream.push(grassLand);
-				grassLand.visible = false;
-		
-				var cornFence:BGSprite = new BGSprite('cornFence', -400, 200, Paths.image('backgrounds/farm/cornFence', 'shared'), null);
-				add(cornFence);
-				bambiFarmDream.push(cornFence);
-				cornFence.visible = false;
-					
-				var cornFence2:BGSprite = new BGSprite('cornFence2', 1100, 200, Paths.image('backgrounds/farm/cornFence2', 'shared'), null);
-				add(cornFence2);
-				bambiFarmDream.push(cornFence2);
-				cornFence2.visible = false;
-		
-				var bagType = FlxG.random.int(0, 1000) == 0 ? 'popeye' : 'cornbag';
-				var cornBag:BGSprite = new BGSprite('cornFence2', 1200, 550, Paths.image('backgrounds/farm/$bagType', 'shared'), null);
-				add(cornBag);
-				bambiFarmDream.push(cornBag);
-				cornBag.visible = false;
-						
-				var sign:BGSprite = new BGSprite('sign', 0, 350, Paths.image('backgrounds/farm/sign', 'shared'), null);
-				add(sign);
-				bambiFarmDream.push(sign);
-				sign.visible = false;
-			}
-			if (SONG.song.toLowerCase() == "importumania") // Dave
-			{
-				var assetType:String = '';
-		
-				var stageHills:BGSprite = new BGSprite('stageHills', -834, -159, Paths.image('backgrounds/dave-house/${assetType}hills'), null, 0.7, 0.7);
-				add(stageHills);
-				daveHouseDream.push(stageHills);
-				stageHills.visible = false;
-		
-				var grassbg:BGSprite = new BGSprite('grassbg', -1205, 580, Paths.image('backgrounds/dave-house/${assetType}grass bg'), null);
-				add(grassbg);
-				daveHouseDream.push(grassbg);
-				grassbg.visible = false;
-			
-				var gate:BGSprite = new BGSprite('gate', -755, 250, Paths.image('backgrounds/dave-house/${assetType}gate'), null);
-				add(gate);
-				daveHouseDream.push(gate);
-				gate.visible = false;
-			
-				var stageFront:BGSprite = new BGSprite('stageFront', -832, 505, Paths.image('backgrounds/dave-house/${assetType}grass'), null);
-				add(stageFront);
-				daveHouseDream.push(stageFront);
-				stageFront.visible = false;
-			}
-			if (SONG.song.toLowerCase() == "importumania") // Tristan
-			{
-				var bg:BGSprite = new BGSprite('bg', -1000, -350, Paths.image('backgrounds/inside_house'), null);
-				sprites.add(bg);
-				add(bg);
-				tristanHouseDream.push(bg);
-				bg.visible = false;
-			}
 		if (!revertedBG)
 		{
 			defaultCamZoom = bgZoom;
@@ -4037,9 +2555,28 @@ class PlayState extends MusicBeatState
 		{
 			if (FlxG.mouse.overlaps(baldi) && FlxG.mouse.justPressed)
 			{
-				isStoryMode = false;
-				storyPlaylist = [];
-				FlxG.switchState(new MathGameState());
+		 	   FlxG.switchState(new TerminalCheatingState([
+			 	new TerminalText(0, [['Warning: ', 1], ['Inteference with an undisclosed varible detected', 1]]),
+		  	 	new TerminalText(200, [['Load unfairness.json', 0.5]]),
+		  	 	new TerminalText(0, [['ERROR: File is corrupted trying to load an alternative...', 3]]),
+		  	 	new TerminalText(0, [['Warning: ', 1],  ['An alternative file has been found.', 2]]),
+				new TerminalText(200, [['Load cozen.json', 0.5]]),
+				], function()
+				{
+					isStoryMode = false;
+					storyPlaylist = [];
+						
+					shakeCam = false;
+					#if SHADERS_ENABLED
+					screenshader.Enabled = false;
+					#end
+
+					PlayState.SONG = Song.loadFromJson("cozen"); // you dun fucked up again
+					PlayState.storyWeek = 15;
+					FlxG.save.data.cozenFound = true;
+					FlxG.switchState(new PlayState());
+				}));
+				return;
 			}
 		}
 		if (hat != null)
@@ -5811,35 +4348,10 @@ class PlayState extends MusicBeatState
 			else
 			{
 				switch (curSong.toLowerCase())
-				{
-					case "bonus-song":
-						CharacterSelectState.unlockCharacter('dave');
-						CharacterSelectState.unlockCharacter('dave-2.5');
-						CharacterSelectState.unlockCharacter('dave-2.1');
-						CharacterSelectState.unlockCharacter('dave-2.0');
-						CharacterSelectState.unlockCharacter('dave-1.0');
-						CharacterSelectState.unlockCharacter('dave-alpha-4');
-						CharacterSelectState.unlockCharacter('dave-alpha');
-					case "insanity-2.5":
-						CharacterSelectState.unlockCharacter('dave-annoyed');
-						CharacterSelectState.unlockCharacter('dave-annoyed-2.5');
-						CharacterSelectState.unlockCharacter('dave-annoyed-2.1');
-						CharacterSelectState.unlockCharacter('dave-annoyed-2.0');
-					case "old-splitathon":
-						CharacterSelectState.unlockCharacter('dave-splitathon-2.0');
-						CharacterSelectState.unlockCharacter('dave-splitathon-1.0');
-						CharacterSelectState.unlockCharacter('bambi-splitathon-2.0');
-						CharacterSelectState.unlockCharacter('bambi-splitathon-1.0');
-					case "splitathon":
-						CharacterSelectState.unlockCharacter('bambi-splitathon-2.5');
-						CharacterSelectState.unlockCharacter('dave-splitathon');
-						CharacterSelectState.unlockCharacter('dave-splitathon-2.5');
-						CharacterSelectState.unlockCharacter('bambi-splitathon');
-					case "cheating":
-						if (modchartoption) CharacterSelectState.unlockCharacter('bambi-3d');
-						if (modchartoption) CharacterSelectState.unlockCharacter('bambi-3d-old');
-					case "bonkers":
-						CharacterSelectState.unlockCharacter('longnosejohn');
+				{					
+					case "cozen":
+						if (modchartoption) CharacterSelectState.unlockCharacter('bambi-unfair');
+						if (modchartoption) CharacterSelectState.unlockCharacter('bambi-unfair-old');
 					case "unfairness":
 						if (modchartoption) CharacterSelectState.unlockCharacter('bambi-unfair');
 						if (modchartoption) CharacterSelectState.unlockCharacter('bambi-unfair-old');
@@ -8123,6 +6635,34 @@ class PlayState extends MusicBeatState
 								}
 							}
 						}
+				}
+			case 'cozen':
+				switch (curStep)
+				{
+					case 1800:
+						subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub10'), 0.02, 0.6);
+			                case 2328:
+				                subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub1'), 0.02, 0.6);
+					case 2355:
+				                subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub2'), 0.02, 0.6);
+					case 2388:
+				                subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub3'), 0.02, 1.5);
+					case 2432:
+				                subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub4'), 0.02, 1.5);
+					case 2464:
+			                        subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub5'), 0.02, 1);
+					case 2479:
+			                        subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub6'), 0.02, 1);
+					case 2493:
+				                subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub7'), 0.02, 1);
+					case 2525:
+				                subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub8'), 0.02, 1);
+					case 2554:
+				                subtitleManager.addSubtitle(LanguageManager.getTextString('cozen_sub9'), 0.02, 1);
+					case 2576:
+					        FlxG.camera.flash(FlxColor.WHITE, 1);
+					        dad.visible = false;
+					        iconP2.visible = false;
 				}
 
 			case 'unfairness':
