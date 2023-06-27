@@ -50,7 +50,7 @@ class FreeplayState extends MusicBeatState
 	private var CurrentSongIcon:FlxSprite;
 
 	private var Catagories:Array<String> = ['joke'];
-	var translatedCatagory:Array<String> = [];
+	var translatedCatagory:Array<String> = [
 	LanguageManager.getTextString('freeplay_joke')
 	];
 
