@@ -215,7 +215,7 @@ class FreeplayState extends MusicBeatState
 		if (FlxG.save.data.terminalFound && !awaitingExploitation)
 		{
 			Catagories = ['joke'];
-			translatedCatagory = [
+			translatedCatagory = [];
 				LanguageManager.getTextString('freeplay_joke')
 		}
 
