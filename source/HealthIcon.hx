@@ -37,6 +37,7 @@ class HealthIcon extends FlxSprite
 				loadGraphic(Paths.image('ui/iconGrid/' + char, 'preload'), true, 150, 150);
 			else
 				loadGraphic(Paths.image('blank', 'shared'));
+	
 			if (char != "none")
 			{
 				antialiasing = !noAaChars.contains(char);
