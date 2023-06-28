@@ -1419,7 +1419,7 @@ class PlayState extends MusicBeatState
 				if (['unfairness'].contains(SONG.song.toLowerCase()))
 				{
 					FlxG.mouse.visible = true;
-					baldi = new BGSprite('baldi', 30, 50, Paths.image('backgrounds/void/baldo', 'shared'), null, 0.65, 0.65);
+					baldi = new BGSprite('baldi', -182, 977, Paths.image('backgrounds/void/redPortal', 'shared'), null, 0.65, 0.65);
 					baldi.setGraphicSize(Std.int(baldi.width * 0.5));
 					baldi.updateHitbox();
 					sprites.insert(members.indexOf(bg), baldi);
