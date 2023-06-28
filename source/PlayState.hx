@@ -1401,15 +1401,25 @@ class PlayState extends MusicBeatState
 			case 'glitchy-void':
 				bgZoom = 0.7;
 
-				var bg:BGSprite = new BGSprite('void', -600, -200, Paths.image('backgrounds/void/scarybg'), null, 1, 1, true, true);
-				bg.setGraphicSize(Std.int(bg.width * 3));
+				var bg:BGSprite = new BGSprite('void', -600, -200, '', null, 1, 1, false, true);
+
+				switch (bgName.toLowerCase())
+				{
+					case 'glitchy-void':
+						bg.loadGraphic(Paths.image('backgrounds/void/scarybg'));
+						bg.setPosition(0, 200);
+						bg.setGraphicSize(Std.int(bg.width * 3));
+						weirdBG = bg;
+						stageName = 'unfairness';
+				}
 				sprites.add(bg);
 				add(bg);
+				voidShader(bg);
 
 				if (['unfairness'].contains(SONG.song.toLowerCase()))
 				{
 					FlxG.mouse.visible = true;
-					baldi = new BGSprite('baldi', -182, 977, Paths.image('backgrounds/void/baldo', 'shared'), null, 0.65, 0.65);
+					baldi = new BGSprite('baldi', 30, 50, Paths.image('backgrounds/void/baldo', 'shared'), null, 0.65, 0.65);
 					baldi.setGraphicSize(Std.int(baldi.width * 0.5));
 					baldi.updateHitbox();
 					sprites.insert(members.indexOf(bg), baldi);
