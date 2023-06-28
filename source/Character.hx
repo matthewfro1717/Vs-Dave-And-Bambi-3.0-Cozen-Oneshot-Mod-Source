@@ -1147,7 +1147,27 @@ class Character extends FlxSprite
 				antialiasing = false;
 		
 				playAnim('idle');
+			case 'random':
+				// BAMBI SHITE ANIMATION LOADING CODE
+				frames = Paths.getSparrowAtlas('expunged/Random', 'shared');
+				animation.addByPrefix('idle', 'idle', 24, false);
+				animation.addByPrefix('singUP', 'up', 24, false);
+				animation.addByPrefix('singRIGHT', 'right', 24, false);
+				animation.addByPrefix('singDOWN', 'down', 24, false);
+				animation.addByPrefix('singLEFT', 'left', 24, false);
+		
+				barColor = FlxColor.fromRGB(65, 66, 65);
 
+				loadOffsetFile(curCharacter + (isPlayer ? '-playable' : ''));
+
+				globalOffset = [130, 310];
+
+				setGraphicSize(Std.int((width * 2.4) / furiosityScale));
+
+				updateHitbox();
+				antialiasing = false;
+		
+				playAnim('idle');
 			case 'bambi-3d-recursed':
 				// BAMBI SHITE ANIMATION LOADING CODE
 				frames = Paths.getSparrowAtlas('recursed/characters/Cheating_Recursed', 'shared');
