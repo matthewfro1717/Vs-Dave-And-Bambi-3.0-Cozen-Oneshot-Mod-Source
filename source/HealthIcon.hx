@@ -35,13 +35,8 @@ class HealthIcon extends FlxSprite
 		{
 			if (char != "none")
 				loadGraphic(Paths.image('ui/iconGrid/' + char, 'preload'), true, 150, 150);
-			else (char != "random")
-				char.loadGraphic(Paths.image('ui/iconGrid/Put_Your_Animated_Icon_Name_Here', 'preload'), true, 150, 150);
-				char.animation.add(char, 'idle', 'random_icons idle', [0, 1], 0, false, isPlayer);
-			        char.animation.play(char);
 			else
 				loadGraphic(Paths.image('blank', 'shared'));
-	
 			if (char != "none")
 			{
 				antialiasing = !noAaChars.contains(char);
