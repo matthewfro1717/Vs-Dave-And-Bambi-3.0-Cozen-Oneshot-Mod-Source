@@ -97,6 +97,9 @@ class CharacterSelectState extends MusicBeatState
 			new CharacterForm('bf', 'Boyfriend', [1,1,1,1]),
 			new CharacterForm('bf-pixel', 'Pixel Boyfriend', [1,1,1,1])
 		]),
+		new CharacterInSelect('random', [1, 1, 1, 1], [
+			new CharacterForm('random', '???', [1,1,1,1]),
+		]),
 	];
 	#if SHADERS_ENABLED
 	var bgShader:Shaders.GlitchEffect;
